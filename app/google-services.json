@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "858856076761",
+    "project_id": "etailoring-e160d",
+    "storage_bucket": "etailoring-e160d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858856076761:android:8f41aa4cb7925c29a815c8",
+        "android_client_info": {
+          "package_name": "apps.webscare.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858856076761-4kfab63kcio1fa7m91s1rm55qm58su19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4OEW8PM_nzLn5LPTBG_DakTWxW3FhKQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858856076761-4kfab63kcio1fa7m91s1rm55qm58su19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Singup">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_icon_back"
+            android:layout_marginLeft="-20dp"
+            android:padding="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Hi !"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Create a new account"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+        <ImageView
+            android:id="@+id/imageViewName"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/ic_icon_feather_user"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="50dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Name"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="15sp"
+            android:theme="@style/MyEditTextTheme"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewLock"
+            app:layout_constraintTop_toTopOf="@+id/imageViewName" />
+
+
+        <ImageView
+            android:id="@+id/imageViewEmail"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_icon_feather_mail"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewName" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="50dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Email"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="15sp"
+            android:theme="@style/MyEditTextTheme"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewLock"
+            app:layout_constraintTop_toTopOf="@+id/imageViewEmail" />
+
+        <ImageView
+            android:id="@+id/imageViewPhone"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_icon_feather_phone_1"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewEmail" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="+92"
+            android:textColor="@color/grey"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewPhone"
+            app:layout_constraintEnd_toStartOf="@+id/editText2"
+            app:layout_constraintStart_toEndOf="@+id/imageViewPhone"
+            app:layout_constraintTop_toTopOf="@+id/imageViewPhone" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Phone number"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="15sp"
+            android:theme="@style/MyEditTextTheme"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewPhone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/imageViewPhone" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="30dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/grey"
+            app:layout_constraintEnd_toEndOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <ImageView
+            android:id="@+id/imageViewLock"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_icon_feather_unlock"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewPhone" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="50dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="15sp"
+            android:theme="@style/MyEditTextTheme"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewLock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewLock"
+            app:layout_constraintTop_toTopOf="@+id/imageViewLock" />
+
+
+        <ImageView
+            android:id="@+id/imageViewAddress"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_icon_material_location_off"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewLock" />
+
+        <EditText
+            android:id="@+id/editTextAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="50dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Address"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="15sp"
+            android:theme="@style/MyEditTextTheme"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewAddress"
+            app:layout_constraintTop_toTopOf="@+id/imageViewAddress" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/buttom_background"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Sign Up"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+            app:layout_constraintStart_toStartOf="@+id/imageViewLock"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewAddress" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.10" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.9" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

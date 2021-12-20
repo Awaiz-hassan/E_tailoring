@@ -10,12 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import apps.webscare.myapplication.R;
+import apps.webscare.myapplication.SharedPreference.SharedPreference;
 
 
 public class Home extends Fragment {
@@ -23,7 +26,9 @@ public class Home extends Fragment {
     ImageView home_unchecked,profile_unchecked,grid_unchecked;
     CardView home_checked,profile_checked,grid_checked;
     ImageButton cart;
+    TextView user_name,user_email,joinedOn;
     ConstraintLayout gallery,orders,settings;
+    SharedPreference sharedPreference;
     public Home() {
         // Required empty public constructor
     }
@@ -42,10 +47,19 @@ public class Home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
+        sharedPreference=new SharedPreference(getActivity());
         gallery=view.findViewById(R.id.constraintLayout2);
         orders=view.findViewById(R.id.constraintLayout3);
         settings=view.findViewById(R.id.settings);
         cart=view.findViewById(R.id.cart);
+        user_name=view.findViewById(R.id.name);
+        user_email=view.findViewById(R.id.email);
+        joinedOn=view.findViewById(R.id.ageAccount);
+        user_name.setText(sharedPreference.getName());
+        user_email.setText(sharedPreference.getEmail());
+        joinedOn.setText(sharedPreference.getJoinedDate());
+
+
 
         home_unchecked=getActivity().findViewById(R.id.imageView);
         profile_unchecked=getActivity().findViewById(R.id.imageView2);
@@ -53,9 +67,6 @@ public class Home extends Fragment {
         home_checked=getActivity().findViewById(R.id.cardView);
         profile_checked=getActivity().findViewById(R.id.profileChecked);
         grid_checked=getActivity().findViewById(R.id.cardView2);
-
-
-
         setHome_checked();
 
         cart.setOnClickListener(new View.OnClickListener() {
@@ -129,5 +140,10 @@ public class Home extends Fragment {
                 R.anim.bottom_up);
         grid_checked.startAnimation(translateAnim);
     }
+
+
+
+
+
 
 }

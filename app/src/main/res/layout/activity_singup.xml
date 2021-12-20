@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Singup">
+    tools:context=".Activities.Signup">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -139,6 +139,7 @@
             android:textColorHint="@color/grey"
             android:textCursorDrawable="@drawable/cursor"
             android:textSize="15sp"
+            android:ems="10"
             android:theme="@style/MyEditTextTheme"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewPhone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -211,21 +212,82 @@
             app:layout_constraintStart_toEndOf="@+id/imageViewAddress"
             app:layout_constraintTop_toTopOf="@+id/imageViewAddress" />
 
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/select_gender"
+            app:layout_constraintBottom_toBottomOf="@+id/Spinner"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewAddress"
+            app:layout_constraintStart_toStartOf="@+id/imageViewAddress"
+            app:layout_constraintTop_toTopOf="@+id/Spinner" />
+
+        <Spinner
+            android:id="@+id/Spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/editTextAddress"
+            app:layout_constraintStart_toStartOf="@+id/editTextAddress"
+            app:layout_constraintTop_toBottomOf="@+id/editTextAddress" />
+
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            app:layout_constraintEnd_toEndOf="@+id/Spinner"
+            app:layout_constraintStart_toStartOf="@+id/Spinner"
+            app:layout_constraintTop_toBottomOf="@+id/Spinner" />
+
         <Button
             android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="50dp"
             android:background="@drawable/buttom_background"
             android:fontFamily="@font/poppins_semibold"
             android:text="Sign Up"
             android:textAllCaps="false"
             android:textColor="@color/white"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
             app:layout_constraintStart_toStartOf="@+id/imageViewLock"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewAddress" />
+            app:layout_constraintTop_toBottomOf="@+id/Spinner" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Loading"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/buttom_background"
+            android:elevation="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+            app:layout_constraintStart_toStartOf="@+id/imageViewLock"
+            app:layout_constraintTop_toBottomOf="@+id/Spinner"
+            >
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loading_in_button" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.Guideline

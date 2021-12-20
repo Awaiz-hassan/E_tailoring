@@ -1,5 +1,7 @@
 package apps.webscare.myapplication.Fragments;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -11,16 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import apps.webscare.myapplication.Activities.Login;
+import apps.webscare.myapplication.Activities.MainActivity;
 import apps.webscare.myapplication.R;
+import apps.webscare.myapplication.SharedPreference.SharedPreference;
 
 
 public class Profile extends Fragment {
 
     ImageView home_unchecked,profile_unchecked,grid_unchecked;
     CardView home_checked,profile_checked,grid_checked;
-
+    ImageButton back;
+    SharedPreference sharedPreference;
+    TextView name,email;
     ConstraintLayout gender, myOrders,resetPassword,manageAddress,aboutUs,contactUs,logout ;
     public Profile() {
         // Required empty public constructor
@@ -42,15 +51,26 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
+        sharedPreference=new SharedPreference(getActivity());
         home_unchecked=getActivity().findViewById(R.id.imageView);
         profile_unchecked=getActivity().findViewById(R.id.imageView2);
         grid_unchecked=getActivity().findViewById(R.id.grid);
         home_checked=getActivity().findViewById(R.id.cardView);
         profile_checked=getActivity().findViewById(R.id.profileChecked);
         grid_checked=getActivity().findViewById(R.id.cardView2);
+        name=view.findViewById(R.id.name);
+        email=view.findViewById(R.id.email);
+        back=view.findViewById(R.id.imageButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
 
-
+        name.setText(sharedPreference.getName());
+        email.setText(sharedPreference.getEmail());
         gender=view.findViewById(R.id.constraintLayout4);
         myOrders=view.findViewById(R.id.constraintLayout5);
         resetPassword=view.findViewById(R.id.constraintLayout6);
@@ -110,7 +130,10 @@ public class Profile extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                sharedPreference.clearAllData();
+                Intent intent=new Intent(getActivity(), Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         return view;

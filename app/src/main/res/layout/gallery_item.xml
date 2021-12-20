@@ -22,6 +22,30 @@
             android:layout_margin="10dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout15"
+        android:background="#f6faff"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:textColor="@color/white"
+            android:text="Order Now"
+            android:textAllCaps="false"
+            android:background="@drawable/blue_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

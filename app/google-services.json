@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "858856076761",
+    "firebase_url": "https://etailoring-e160d-default-rtdb.firebaseio.com",
     "project_id": "etailoring-e160d",
     "storage_bucket": "etailoring-e160d.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "858856076761-hdppg6i996tq5kt9b26dv67dde9jfqm7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "apps.webscare.myapplication",
+            "certificate_hash": "50a74539d9805d3f355e315869ade872a96b38de"
+          }
+        },
         {
           "client_id": "858856076761-4kfab63kcio1fa7m91s1rm55qm58su19.apps.googleusercontent.com",
           "client_type": 3

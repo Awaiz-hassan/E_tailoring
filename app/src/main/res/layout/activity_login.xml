@@ -103,11 +103,23 @@
         android:textColorHint="@color/grey"
         android:textCursorDrawable="@drawable/cursor"
         android:textSize="15sp"
+        android:inputType="textPassword"
         android:theme="@style/MyEditTextTheme"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewLock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewLock"
         app:layout_constraintTop_toTopOf="@+id/imageViewLock" />
+
+    <ImageView
+        android:id="@+id/pass_visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:src="@drawable/ic_baseline_visibility_off_24"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextPassword"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+        app:layout_constraintTop_toTopOf="@+id/editTextPassword" />
+
 
     <Button
         android:id="@+id/button"
@@ -134,6 +146,35 @@
         app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Loading"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/buttom_background"
+        android:elevation="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+        app:layout_constraintStart_toStartOf="@+id/imageViewLock"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        >
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_in_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="0dp"

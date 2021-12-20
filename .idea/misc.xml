@@ -15,9 +15,12 @@
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/gender_img.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/home_item.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.3141025641025641" />
+        <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.3141025641025641" />
+        <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_cart_path.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_grid.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_home.xml" value="0.3141025641025641" />
+        <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_icon_awesome_male.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_icon_back.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_icon_metro_bin.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_shopping_cart.xml" value="0.3141025641025641" />
@@ -44,6 +47,7 @@
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/fragment_reset_password.xml" value="0.30085470085470084" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/gallery_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/measurements_item.xml" value="0.30085470085470084" />
+        <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/otp.xml" value="0.30085470085470084" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/prev_order_item.xml" value="0.30085470085470084" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/menu/bottom_navigation.xml" value="0.30085470085470084" />
       </map>

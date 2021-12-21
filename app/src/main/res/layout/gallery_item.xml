@@ -11,12 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/top_round"
-
         app:layout_constraintDimensionRatio="H,1:0.8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
+            android:id="@+id/itemImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"/>
@@ -24,15 +24,18 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/orderNowLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/constraintLayout15"
-        android:background="#f6faff"
+        android:background="#261285bb"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
 
         <Button
+            android:id="@+id/buttonOrder"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:textColor="@color/white"
@@ -59,10 +62,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Name"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textSize="12sp"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/textView27"
             app:layout_constraintEnd_toStartOf="@+id/addToCart"
@@ -101,7 +105,6 @@
             android:layout_marginLeft="7dp"
             android:layout_marginBottom="6dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="PKR 500"
             android:textSize="12sp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"

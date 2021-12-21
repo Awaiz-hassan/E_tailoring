@@ -15,6 +15,7 @@
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/gender_img.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/home_item.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.3141025641025641" />
+        <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_baseline_keyboard_arrow_up_24.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.3141025641025641" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/drawable/ic_cart_path.xml" value="0.3141025641025641" />
@@ -31,6 +32,7 @@
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/activity_singup.xml" value="0.3625" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/activity_splash.xml" value="0.30085470085470084" />
+        <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/add_address.xml" value="0.30085470085470084" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/cart_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/fragment_cart.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/fragment_checkout__two.xml" value="0.33" />
@@ -49,6 +51,7 @@
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/measurements_item.xml" value="0.30085470085470084" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/otp.xml" value="0.30085470085470084" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/prev_order_item.xml" value="0.30085470085470084" />
+        <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/layout/show_address.xml" value="0.30085470085470084" />
         <entry key="..\:/AndroidStudioProjects/E-Tailoring/app/src/main/res/menu/bottom_navigation.xml" value="0.30085470085470084" />
       </map>
     </option>

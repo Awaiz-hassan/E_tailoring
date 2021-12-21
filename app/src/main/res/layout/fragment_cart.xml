@@ -70,7 +70,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:text="PKR 4400"
             android:gravity="end"
             android:textSize="15sp"
             android:layout_marginLeft="80dp"
@@ -88,7 +87,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="end"
-            android:text="PKR 400"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@+id/subTotal"
@@ -102,7 +100,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="end"
-            android:text="PKR 200"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@+id/tax"
@@ -145,11 +142,11 @@
 
 
         <TextView
+            android:id="@+id/total"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="end"
-            android:text="PKR 5000"
             android:textColor="@color/purple_200"
             android:textSize="15sp"
             android:layout_marginTop="10dp"
@@ -177,7 +174,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_semibold"
-        android:text="5"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView22"
         app:layout_constraintStart_toStartOf="@+id/textView21"
@@ -201,11 +197,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_semibold"
-        android:text="PKR 5000.00"
         android:layout_marginLeft="30dp"
         android:textColor="@color/purple_200"
         app:layout_constraintBottom_toBottomOf="@+id/button3"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/background_color"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

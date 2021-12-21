@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,10 +59,9 @@ public class CheckoutOne extends Fragment {
 
 
     // TODO: Rename and change types and number of parameters
-    public static CheckoutOne newInstance() {
+    public static CheckoutOne newInstance(ArrayList<GalleryItem> items) {
         CheckoutOne fragment = new CheckoutOne();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -134,10 +135,23 @@ public class CheckoutOne extends Fragment {
 
            }
        });
+        ImageButton back=view.findViewById(R.id.imageButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
        proceed.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+               if(addressAdapter!=null){
+                   if(addressAdapter.getItemSelected()!=-1){
+                       Fragment myFragment = CheckoutTwo.newInstance(addressList.get(addressAdapter.getItemSelected()).getAddress());
+                       getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(null).commit();
+                   }
 
+               }
            }
        });
        getAllAddresses();

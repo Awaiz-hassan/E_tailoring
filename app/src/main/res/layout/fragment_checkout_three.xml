@@ -37,6 +37,7 @@
 
 
         <Button
+            android:id="@+id/continueShopping"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="40dp"
@@ -116,10 +117,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_circle_grey"
+            android:layout_marginRight="60dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView11"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView11"
-            app:tint="@color/purple_200"
-            tools:layout_editor_absoluteX="287dp" />
+            app:tint="@color/purple_200" />
 
     <ImageView
         android:id="@+id/imageView15"

@@ -25,7 +25,7 @@ public class Home extends Fragment {
 
     ImageView home_unchecked,profile_unchecked,grid_unchecked;
     CardView home_checked,profile_checked,grid_checked;
-    ImageButton cart;
+    ImageButton cart,back;
     TextView user_name,user_email,joinedOn;
     ConstraintLayout gallery,orders,settings;
     SharedPreference sharedPreference;
@@ -60,14 +60,19 @@ public class Home extends Fragment {
         joinedOn.setText(sharedPreference.getJoinedDate());
 
 
-
         home_unchecked=getActivity().findViewById(R.id.imageView);
         profile_unchecked=getActivity().findViewById(R.id.imageView2);
         grid_unchecked=getActivity().findViewById(R.id.grid);
         home_checked=getActivity().findViewById(R.id.cardView);
         profile_checked=getActivity().findViewById(R.id.profileChecked);
         grid_checked=getActivity().findViewById(R.id.cardView2);
-        setHome_checked();
+        back=view.findViewById(R.id.imageButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +81,8 @@ public class Home extends Fragment {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(myFragment.getClass().getName()).commit();
             }
         });
+
+        setHome_checked();
 
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override

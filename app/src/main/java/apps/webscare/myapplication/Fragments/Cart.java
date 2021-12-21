@@ -85,7 +85,7 @@ public class Cart extends Fragment {
             @Override
             public void onClick(View view) {
                 if(priceTotal>0){
-                    Fragment myFragment = CheckoutOne.newInstance();
+                    Fragment myFragment = CheckoutOne.newInstance((ArrayList<GalleryItem>) galleryItemList);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(null).commit();
                 }
             }

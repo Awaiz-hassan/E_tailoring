@@ -67,7 +67,12 @@ public class GalleryItemsAdapter extends RecyclerView.Adapter<GalleryItemsAdapte
                 AddItemsToCart(itemList.get(position).getName(),itemList.get(position).getId(),itemList.get(position).getPrice(),itemList.get(position).getImage(),phone);
             }
         });
-
+        holder.orderNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddItemsToCart(itemList.get(position).getName(),itemList.get(position).getId(),itemList.get(position).getPrice(),itemList.get(position).getImage(),phone);
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,12 +88,7 @@ public class GalleryItemsAdapter extends RecyclerView.Adapter<GalleryItemsAdapte
                 }
             }
         });
-        holder.orderNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
     }
 

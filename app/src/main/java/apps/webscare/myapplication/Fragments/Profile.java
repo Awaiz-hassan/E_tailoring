@@ -136,6 +136,13 @@ public class Profile extends Fragment {
                 startActivity(intent);
             }
         });
+        ImageButton back=view.findViewById(R.id.imageButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
         return view;
     }
 

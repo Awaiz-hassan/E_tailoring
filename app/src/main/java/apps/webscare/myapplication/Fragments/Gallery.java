@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class Gallery extends Fragment {
     DatabaseReference ref;
     List<GalleryItem> womenItems,menItems;
     ConstraintLayout Loading;
-
+    ImageButton back,cart;
     public Gallery() {
         // Required empty public constructor
     }
@@ -80,8 +81,27 @@ public class Gallery extends Fragment {
         men_text=view.findViewById(R.id.mens_text);
         women_text=view.findViewById(R.id.women_text);
         Loading=view.findViewById(R.id.Loading);
+        cart=view.findViewById(R.id.cart);
         setGrid_checked();
         getMenItems();
+
+        back=view.findViewById(R.id.imageButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment myFragment = Cart.newInstance();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(myFragment.getClass().getName()).commit();
+            }
+        });
+
+
         men_catagory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -19,18 +19,19 @@ import android.widget.TextView;
 
 import apps.webscare.myapplication.Activities.Login;
 import apps.webscare.myapplication.Activities.MainActivity;
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.R;
 import apps.webscare.myapplication.SharedPreference.SharedPreference;
 
 
 public class Profile extends Fragment {
 
-    ImageView home_unchecked,profile_unchecked,grid_unchecked;
+    ImageView home_unchecked,profile_unchecked,grid_unchecked,avatar;
     CardView home_checked,profile_checked,grid_checked;
     ImageButton back;
     SharedPreference sharedPreference;
     TextView name,email;
-    ConstraintLayout gender, myOrders,resetPassword,manageAddress,aboutUs,contactUs,logout ;
+    ConstraintLayout  myOrders,resetPassword,aboutUs,contactUs,logout ;
     public Profile() {
         // Required empty public constructor
     }
@@ -51,6 +52,8 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
+        Constants.CurrentFrag="profile";
+
         sharedPreference=new SharedPreference(getActivity());
         home_unchecked=getActivity().findViewById(R.id.imageView);
         profile_unchecked=getActivity().findViewById(R.id.imageView2);
@@ -71,10 +74,8 @@ public class Profile extends Fragment {
 
         name.setText(sharedPreference.getName());
         email.setText(sharedPreference.getEmail());
-        gender=view.findViewById(R.id.constraintLayout4);
         myOrders=view.findViewById(R.id.constraintLayout5);
         resetPassword=view.findViewById(R.id.constraintLayout6);
-        manageAddress=view.findViewById(R.id.constraintLayout7);
         aboutUs=view.findViewById(R.id.constraintLayout9);
         contactUs=view.findViewById(R.id.constraintLayout10);
         logout=view.findViewById(R.id.logOut);
@@ -83,13 +84,7 @@ public class Profile extends Fragment {
 
 
 
-        gender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment myFragment = Gender.newInstance();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(myFragment.getClass().getName()).commit();
-            }
-        });
+
 
         myOrders.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,13 +98,6 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment myFragment = ResetPassword.newInstance();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(myFragment.getClass().getName()).commit();
-            }
-        });
-        manageAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment myFragment = ManageAddress.newInstance();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(myFragment.getClass().getName()).commit();
             }
         });
@@ -143,6 +131,11 @@ public class Profile extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+
+
+        avatar=view.findViewById(R.id.avatar);
+
+
         return view;
     }
 

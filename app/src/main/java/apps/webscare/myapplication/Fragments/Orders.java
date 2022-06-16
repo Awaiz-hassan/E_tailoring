@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,9 +27,11 @@ import java.util.List;
 
 import apps.webscare.myapplication.Adapters.GalleryItemsAdapter;
 import apps.webscare.myapplication.Adapters.PlacedOrdersAdapter;
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.Model.GalleryItem;
 import apps.webscare.myapplication.R;
 import apps.webscare.myapplication.SharedPreference.SharedPreference;
+import apps.webscare.myapplication.Statics.StaticVar;
 
 
 public class Orders extends Fragment {
@@ -36,7 +39,6 @@ public class Orders extends Fragment {
 
     RecyclerView rw_orders;
     PlacedOrdersAdapter placedOrdersAdapter;
-    DatabaseReference orderRef;
     SharedPreference sharedPreference;
     ImageView back;
     ImageButton cart;
@@ -62,6 +64,8 @@ public class Orders extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_orders, container, false);
+        Constants.CurrentFrag="orders";
+
         sharedPreference=new SharedPreference(getActivity());
         rw_orders=view.findViewById(R.id.rw_orders);
         cart=view.findViewById(R.id.cart);
@@ -88,30 +92,5 @@ public class Orders extends Fragment {
     }
 
     void getALlOrders(){
-        Loading.setVisibility(View.VISIBLE);
-
-        orderRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(sharedPreference.getPhone()).child("UserOrders");
-        orderRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ordersList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    apps.webscare.myapplication.Model.Orders model = dataSnapshot.getValue(apps.webscare.myapplication.Model.Orders.class);
-
-                    ordersList.add(model);
-                }
-
-                placedOrdersAdapter=new PlacedOrdersAdapter(getActivity(),ordersList);
-                rw_orders.setLayoutManager(new LinearLayoutManager(getActivity()));
-                rw_orders.setAdapter(placedOrdersAdapter);
-                Loading.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Loading.setVisibility(View.GONE);
-            }
-        });
-
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.R;
 
 
@@ -36,6 +37,8 @@ public class ContactsUs extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_contacts_us, container, false);
+        Constants.CurrentFrag="contactus";
+
         ImageButton back=view.findViewById(R.id.imageButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

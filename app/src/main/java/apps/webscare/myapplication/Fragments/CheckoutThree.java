@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 
 import apps.webscare.myapplication.Activities.Login;
 import apps.webscare.myapplication.Activities.MainActivity;
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.R;
 
 public class CheckoutThree extends Fragment {
@@ -38,6 +39,8 @@ public class CheckoutThree extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_checkout_three, container, false);
+        Constants.CurrentFrag="checkoutthree";
+
         ContinueShopping=view.findViewById(R.id.continueShopping);
         ImageButton back=view.findViewById(R.id.imageButton);
         back.setOnClickListener(new View.OnClickListener() {

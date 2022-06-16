@@ -17,13 +17,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.R;
 import apps.webscare.myapplication.SharedPreference.SharedPreference;
+import apps.webscare.myapplication.Statics.StaticVar;
 
 
 public class Home extends Fragment {
 
-    ImageView home_unchecked,profile_unchecked,grid_unchecked;
+    ImageView home_unchecked,profile_unchecked,grid_unchecked,avatar;
     CardView home_checked,profile_checked,grid_checked;
     ImageButton cart,back;
     TextView user_name,user_email,joinedOn;
@@ -47,17 +49,19 @@ public class Home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
+        Constants.CurrentFrag="home";
         sharedPreference=new SharedPreference(getActivity());
         gallery=view.findViewById(R.id.constraintLayout2);
         orders=view.findViewById(R.id.constraintLayout3);
         settings=view.findViewById(R.id.settings);
         cart=view.findViewById(R.id.cart);
+
         user_name=view.findViewById(R.id.name);
         user_email=view.findViewById(R.id.email);
         joinedOn=view.findViewById(R.id.ageAccount);
         user_name.setText(sharedPreference.getName());
         user_email.setText(sharedPreference.getEmail());
-        joinedOn.setText(sharedPreference.getJoinedDate());
+        joinedOn.setText(sharedPreference.getAddress());
 
 
         home_unchecked=getActivity().findViewById(R.id.imageView);
@@ -67,6 +71,7 @@ public class Home extends Fragment {
         profile_checked=getActivity().findViewById(R.id.profileChecked);
         grid_checked=getActivity().findViewById(R.id.cardView2);
         back=view.findViewById(R.id.imageButton);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +110,10 @@ public class Home extends Fragment {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(myFragment.getClass().getName()).commit();
             }
         });
+        avatar=view.findViewById(R.id.avatar);
+
+
+
         return view;
     }
 

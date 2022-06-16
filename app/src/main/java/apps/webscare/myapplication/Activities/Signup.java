@@ -40,26 +40,29 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import apps.webscare.myapplication.Model.RegisterUser;
 import apps.webscare.myapplication.Model.User;
 import apps.webscare.myapplication.R;
+import apps.webscare.myapplication.RetrofitClient.RetrofitClient;
 import apps.webscare.myapplication.SharedPreference.SharedPreference;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class Signup extends AppCompatActivity {
 
     ImageButton back;
     FirebaseAuth mAuth;
-    Spinner selectGender;
     Button signUp;
     SharedPreference sharedPreference;
     EditText name,address,phone,email,password,otp;
     ConstraintLayout Loading;
-    private FirebaseDatabase db;
-    private DatabaseReference myRef;
+    Call<RegisterUser> registerUserCall;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = FirebaseDatabase.getInstance();
-        myRef = db.getReference().child("Users");
         setContentView(R.layout.activity_singup);
         back=findViewById(R.id.back);
         mAuth=FirebaseAuth.getInstance();
@@ -78,11 +81,7 @@ public class Signup extends AppCompatActivity {
             }
         });
 
-        selectGender = findViewById(R.id.Spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.Gender, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectGender.setAdapter(adapter);
+
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,73 +113,52 @@ public class Signup extends AppCompatActivity {
             password.setError("Please choose a strong password");
             return;
         }
-       CreateUserInDataBase();
+       CreateUserInDataBase(name.getText().toString().trim(),email.getText().toString().trim(),"+92"+phone.getText().toString().trim(),password.getText().toString().trim(),address.getText().toString().trim() );
 
 
     }
 
-    void CreateUserInDataBase(){
+    void CreateUserInDataBase(String name, String email, String phoneNumber , String password, String address){
 
         showLoading();
-        HashMap<String , String> userMap = new HashMap<>();
+        RetrofitClient.connect("https://etailoring.pk/store/api/user/");
+        registerUserCall=RetrofitClient.getInstance().getApi().registerUser(name,email,phoneNumber,address,password);
+        registerUserCall.enqueue(new Callback<RegisterUser>() {
+            @Override
+            public void onResponse(Call<RegisterUser> call, Response<RegisterUser> response) {
+                if(response.isSuccessful()){
+                    Intent intent=new Intent(Signup.this, Login.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    Toast.makeText(Signup.this, "User registered successfully", Toast.LENGTH_SHORT).show();
 
-        userMap.put("name" , name.getText().toString());
-        userMap.put("email" , email.getText().toString());
-        userMap.put("phone" , "+92"+phone.getText().toString());
-        userMap.put("password" , password.getText().toString());
-        userMap.put("gender" , selectGender.getSelectedItem().toString());
-        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        userMap.put("joined_on",currentDate);
-        userMap.put("homeaddress" , address.getText().toString());
-
-
-
-        Query query=db.getReference().child("Users").orderByChild("phone").equalTo("+92"+phone.getText().toString());
-        query.addListenerForSingleValueEvent(
-
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                                Toast.makeText(Signup.this,"Phone number already exists!", Toast.LENGTH_SHORT).show();
-
-                            }
-                            hideLoading();
-                        }
-                        else{
-                            myRef.push().setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        hideLoading();
-                                        Intent intent=new Intent(Signup.this, Login.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
-                                    }
-                                    else {
-                                        hideLoading();
-                                        Toast.makeText(Signup.this,"Failed! Try again later", Toast.LENGTH_SHORT).show();
-                                    }
-
-
-                                }
-                            });
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
                 }
-        );
+                else{
+                    Toast.makeText(Signup.this, "Server Error! Try again later!", Toast.LENGTH_SHORT).show();
+                }
+                hideLoading();
+            }
+
+            @Override
+            public void onFailure(Call<RegisterUser> call, Throwable t) {
+                if(t.getMessage().equals("java.lang.IllegalStateException: Expected BEGIN_OBJECT but was BEGIN_ARRAY at line 1 column 25 path $.data")){
+                    Toast.makeText(Signup.this, "Email already taken!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(Signup.this, "Server Error! Try again later!", Toast.LENGTH_SHORT).show();
+
+                }
+                Log.d("TAG1", "onFailure: ");
+                hideLoading();
+
+            }
+        });
+
 
     }
 
 
-    public static boolean isEmailValid(String email) {
+    public boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);

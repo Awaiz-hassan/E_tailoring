@@ -1,5 +1,7 @@
 package apps.webscare.myapplication.Fragments;
 
+import static apps.webscare.myapplication.Statics.StaticVar.priceTotal;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -14,7 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import apps.webscare.myapplication.Statics.StaticVar.*;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,23 +38,23 @@ import apps.webscare.myapplication.Activities.Login;
 import apps.webscare.myapplication.Activities.Signup;
 import apps.webscare.myapplication.Adapters.CartAdapter;
 import apps.webscare.myapplication.Adapters.GalleryItemsAdapter;
+import apps.webscare.myapplication.Interfaces.updateCart;
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.Model.GalleryItem;
 import apps.webscare.myapplication.R;
 import apps.webscare.myapplication.SharedPreference.SharedPreference;
+import apps.webscare.myapplication.Statics.StaticVar;
 
 
 public class Cart extends Fragment {
 
 
     RecyclerView cartItems;
-    DatabaseReference cartRef;
     CartAdapter cartAdapter;
     SharedPreference sharedPreference;
-    List<GalleryItem> galleryItemList;
     ConstraintLayout Loading;
     TextView subtotal,taX,deliveryCharges,total,totalItems,grandTotal;
     Button secureCheckout;
-    int priceTotal=0;
 
     public Cart() {
         // Required empty public constructor
@@ -68,6 +72,8 @@ public class Cart extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_cart, container, false);
+        Constants.CurrentFrag="cart";
+
         sharedPreference=new SharedPreference(getActivity());
         cartItems=view.findViewById(R.id.cartItems);
         Loading=view.findViewById(R.id.Loading);
@@ -75,19 +81,32 @@ public class Cart extends Fragment {
         taX=view.findViewById(R.id.tax);
         secureCheckout=view.findViewById(R.id.button3);
         deliveryCharges=view.findViewById(R.id.textView26);
-        galleryItemList=new ArrayList<>();
         total=view.findViewById(R.id.total);
         totalItems=view.findViewById(R.id.textView20);
         grandTotal=view.findViewById(R.id.textView21);
-        getCartItems(sharedPreference.getPhone());
-
+        cartItems.setLayoutManager(new LinearLayoutManager(getActivity()));
+        updatePrice();
+        cartAdapter=new CartAdapter(getActivity(), new updateCart() {
+            @Override
+            public void onItemClick(String text) {
+                updatePrice();
+            }
+        });
+        cartItems.setAdapter(cartAdapter);
         secureCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(priceTotal>0){
-                    Fragment myFragment = CheckoutOne.newInstance((ArrayList<GalleryItem>) galleryItemList);
+                    Fragment myFragment = CheckoutOne.newInstance();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(null).commit();
                 }
+            }
+        });
+        ImageButton back=view.findViewById(R.id.imageButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
             }
         });
         return view;
@@ -96,54 +115,33 @@ public class Cart extends Fragment {
 
 
 
-    void getCartItems(String phone){
-        Loading.setVisibility(View.VISIBLE);
-        cartRef = FirebaseDatabase.getInstance().getReference().child("Cart").child(phone).child("UserCart");
-        cartRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                galleryItemList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    GalleryItem model = dataSnapshot.getValue(GalleryItem.class);
-                    galleryItemList.add(model);
-                }
-                cartItems.setLayoutManager(new LinearLayoutManager(getActivity()));
-                cartAdapter=new CartAdapter(galleryItemList,getActivity(),sharedPreference.getPhone());
-                cartItems.setAdapter(cartAdapter);
-                Loading.setVisibility(View.GONE);
-                priceTotal=0;
-                if(galleryItemList.size()>0){
-                    for(int i=0;i<galleryItemList.size();i++){
-                        priceTotal=priceTotal+Integer.parseInt(galleryItemList.get(i).getPrice());
-                    }
-
-                }
-                if(priceTotal>0){
-
-                subtotal.setText("PKR "+priceTotal);
-                deliveryCharges.setText("PKR 200");
-                taX.setText("PKR 180");
-                int grand=priceTotal+200+150;
-                grandTotal.setText("PKR "+grand);
-                total.setText("PKR "+grand);
-                totalItems.setText(String.valueOf(galleryItemList.size()));
-                }
-
-                else{
-                    subtotal.setText("PKR "+0);
-                    deliveryCharges.setText("PKR 0");
-                    taX.setText("PKR 0");
-                    grandTotal.setText("PKR "+0);
-                    total.setText("PKR "+0);
-                    totalItems.setText(String.valueOf(galleryItemList.size()));
-                }
-
+    void updatePrice(){
+        priceTotal=0;
+        if(StaticVar.cart.size()>0){
+            for(int i=0;i<StaticVar.cart.size();i++){
+                priceTotal=priceTotal+(Integer.parseInt(StaticVar.cart.get(i).getPrice())*Integer.parseInt(StaticVar.cart.get(i).getQuantity()) );
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+        }
+
+        if(priceTotal>0){
+
+            subtotal.setText("PKR "+priceTotal);
+            deliveryCharges.setText("PKR 200");
+            taX.setText("PKR 150");
+            int grand=priceTotal+200+150;
+            grandTotal.setText("PKR "+grand);
+            total.setText("PKR "+grand);
+        }
+
+        else{
+            subtotal.setText("PKR "+0);
+            deliveryCharges.setText("PKR 0");
+            taX.setText("PKR 0");
+            grandTotal.setText("PKR "+0);
+            total.setText("PKR "+0);
+        }
+        totalItems.setText(String.valueOf(StaticVar.cart.size()));
     }
 
 

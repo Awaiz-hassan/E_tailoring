@@ -30,6 +30,7 @@ import java.util.List;
 
 import apps.webscare.myapplication.Adapters.AddressAdapter;
 import apps.webscare.myapplication.Model.Address;
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.R;
 import apps.webscare.myapplication.SharedPreference.SharedPreference;
 
@@ -65,6 +66,8 @@ public class ManageAddress extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_manage_address, container, false);
+        Constants.CurrentFrag="manageaddress";
+
         sharedPreference=new SharedPreference(getActivity());
         addAddress=view.findViewById(R.id.constraintLayout17);
         rw_addresses=view.findViewById(R.id.Address);

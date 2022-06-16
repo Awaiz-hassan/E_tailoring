@@ -6,12 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -27,22 +30,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import apps.webscare.myapplication.Fragments.Cart;
+import apps.webscare.myapplication.Fragments.Measurements;
+import apps.webscare.myapplication.Fragments.SingleCheckoutOne;
+import apps.webscare.myapplication.Interfaces.updateCart;
+import apps.webscare.myapplication.Model.CartModel;
 import apps.webscare.myapplication.Model.GalleryItem;
 import apps.webscare.myapplication.R;
+import apps.webscare.myapplication.Statics.StaticVar;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
-    List<GalleryItem> cartItems;
+
     Context context;
-    String phone;
-
-
     int row_index=-1;
+    updateCart updateCart;
 
-    public CartAdapter(List<GalleryItem> cartItems, Context context, String phone) {
-        this.cartItems = cartItems;
+    public CartAdapter(Context context, apps.webscare.myapplication.Interfaces.updateCart updateCart) {
         this.context = context;
-        this.phone = phone;
+        this.updateCart = updateCart;
     }
 
     @NonNull
@@ -54,43 +60,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.CartViewHolder holder, int position) {
+        CartModel cartModel=StaticVar.cart.get(holder.getAdapterPosition());
+        holder.title.setText(cartModel.getTitle());
+        holder.quantity.setText(cartModel.getQuantity());
+        holder.price.setText("PKR "+cartModel.getPrice());
+        Glide.with(context).load(cartModel.getImage()).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.image);
 
-
-        holder.title.setText(cartItems.get(position).getName());
-        holder.quantity.setText(cartItems.get(position).getCount());
-        holder.price.setText("PKR "+cartItems.get(position).getPrice());
-        Glide.with(context).load(cartItems.get(position).getImage()).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.image);
 
 
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference().child("Cart").child(phone).child("UserCart");
-
-                Query query=cartRef.orderByChild("id").equalTo(cartItems.get(position).getId());
-                query.addListenerForSingleValueEvent(
-
-                        new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()){
-                                    for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                                        cartRef.child(dataSnapshot.getKey()).removeValue();
-                                    }
-
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        }
-                );
-
-
-
+                StaticVar.cart.remove(holder.getAdapterPosition());
+                updateCart.onItemClick("cleciked");
+                notifyDataSetChanged();
             }
         });
 
@@ -103,16 +87,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         });
         if(row_index== holder.getAdapterPosition()){
 
-            if(!cartItems.get(position).isVisible()){
+            if(!StaticVar.cart.get(holder.getAdapterPosition()).isVisible()){
             holder.details.setVisibility(View.VISIBLE);
-            cartItems.get(position).setVisible(true);
+                StaticVar.cart.get(holder.getAdapterPosition()).setVisible(true);
             holder.arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24);
             }
             else{
                 holder.arrow.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24);
 
                 holder.details.setVisibility(View.GONE);
-                cartItems.get(position).setVisible(false);
+                StaticVar.cart.get(holder.getAdapterPosition()).setVisible(false);
             }
         }
         else{
@@ -125,7 +109,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public int getItemCount() {
-        return cartItems.size();
+        return StaticVar.cart.size();
     }
     public class CartViewHolder extends RecyclerView.ViewHolder{
 

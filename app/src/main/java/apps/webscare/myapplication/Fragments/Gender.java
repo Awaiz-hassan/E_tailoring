@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.R;
 import apps.webscare.myapplication.SharedPreference.SharedPreference;
 
@@ -31,9 +33,8 @@ public class Gender extends Fragment {
     Boolean male;
     ImageButton back;
 
-    public Gender() {
-        // Required empty public constructor
-    }
+    public Gender() {// Required empty public constructor
+         }
 
     DatabaseReference ref;
     SharedPreference sharedPreference;
@@ -52,6 +53,7 @@ public class Gender extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gender, container, false);
+        Constants.CurrentFrag="gender";
         Male = view.findViewById(R.id.constraintLayout11);
         Female = view.findViewById(R.id.constraintLayout12);
         Save = view.findViewById(R.id.save);
@@ -97,37 +99,8 @@ public class Gender extends Fragment {
 
             }
         });
-        Save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ref = FirebaseDatabase.getInstance().getReference().child("Users");
-                ref.orderByChild("phone").equalTo(sharedPreference.getPhone()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            for (DataSnapshot data : snapshot.getChildren()) {
-                                String key = data.getKey();
-                                if (male) {
-                                    ref.child(key).child("gender").setValue("Male");
-                                    sharedPreference.removeGender();
-                                    sharedPreference.setGender("Male");
-                                } else {
-                                    ref.child(key).child("gender").setValue("Female");
-                                    sharedPreference.removeGender();
-                                    sharedPreference.setGender("Female");
-                                }
 
-                            }
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
         return view;
     }
 }

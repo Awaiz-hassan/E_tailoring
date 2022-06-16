@@ -36,9 +36,11 @@ import java.util.List;
 import java.util.Locale;
 
 import apps.webscare.myapplication.Adapters.CartAdapter;
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.Model.GalleryItem;
 import apps.webscare.myapplication.R;
 import apps.webscare.myapplication.SharedPreference.SharedPreference;
+import apps.webscare.myapplication.Statics.StaticVar;
 
 
 public class CheckoutTwo extends Fragment {
@@ -70,6 +72,8 @@ public class CheckoutTwo extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_checkout__two, container, false);
+        Constants.CurrentFrag="checkouttwo";
+
         SelfPickup=view.findViewById(R.id.SelfPickup);
         galleryItemList=new ArrayList<>();
         sharedPreference=new SharedPreference(getActivity());
@@ -84,9 +88,13 @@ public class CheckoutTwo extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(SelfPickup.isChecked()){
                     SelfPickupLayout.setBackground(getResources().getDrawable(R.drawable.blue_border));
+                    StaticVar.priceTotal=StaticVar.priceTotal-200;
+                    grandTotal.setText("Rs"+String.valueOf(StaticVar.priceTotal));
                 }
                 else{
                     SelfPickupLayout.setBackground(getResources().getDrawable(R.drawable.button_grey_background));
+                    StaticVar.priceTotal=StaticVar.priceTotal+200;
+                    grandTotal.setText("Rs"+String.valueOf(StaticVar.priceTotal));
 
                 }
             }
@@ -98,7 +106,6 @@ public class CheckoutTwo extends Fragment {
                  ConfirmOrder();
             }
         });
-        getCartItems(sharedPreference.getPhone());
         ImageButton back=view.findViewById(R.id.imageButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,78 +113,14 @@ public class CheckoutTwo extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+        grandTotal.setText("Rs"+String.valueOf(StaticVar.priceTotal));
         return view;
     }
 
     private void ConfirmOrder() {
 
-        if(galleryItemList.size()>0){
-            Loading.setVisibility(View.VISIBLE);
-            String items=" ";
-        HashMap<String , String> orderMap = new HashMap<>();
-            String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-            for(int i=0;i<galleryItemList.size();i++){
-                items=items+galleryItemList.get(i).getName()+" * "+ galleryItemList.get(i).getCount()+"\n";
-            }
-            orderMap.put("title",items);
-            orderMap.put("placed_on",currentDate);
-            orderMap.put("address",Address);
-            orderMap.put("price_total",String.valueOf(priceTotal+200+150));
-        orderRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(sharedPreference.getPhone()).child("UserOrders");
-        cartRef = FirebaseDatabase.getInstance().getReference().child("Cart").child(sharedPreference.getPhone()).child("UserCart");
 
-        orderRef.push().setValue(orderMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Loading.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(),"Order Placed", Toast.LENGTH_SHORT).show();
-                    cartRef.removeValue();
-                    Fragment myFragment = CheckoutThree.newInstance();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragHolder, myFragment).addToBackStack(null).commit();
-
-                }
-                else {
-                    Loading.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(),"Failed to place order", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
-        }
     }
 
 
-    void getCartItems(String phone){
-        Loading.setVisibility(View.VISIBLE);
-        cartRef = FirebaseDatabase.getInstance().getReference().child("Cart").child(phone).child("UserCart");
-        cartRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                galleryItemList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    GalleryItem model = dataSnapshot.getValue(GalleryItem.class);
-                    galleryItemList.add(model);
-                }
-
-                Loading.setVisibility(View.GONE);
-                priceTotal=0;
-                if(galleryItemList.size()>0){
-                    for(int i=0;i<galleryItemList.size();i++){
-                        priceTotal=priceTotal+Integer.parseInt(galleryItemList.get(i).getPrice());
-                    }
-
-                }
-                if(priceTotal>0){
-                    int grand=priceTotal+200+150;
-                    grandTotal.setText("PKR "+grand);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
 }

@@ -33,20 +33,25 @@ import java.util.List;
 
 import apps.webscare.myapplication.Fragments.Cart;
 import apps.webscare.myapplication.Fragments.Gallery;
+import apps.webscare.myapplication.Fragments.SingleCheckoutOne;
+import apps.webscare.myapplication.Model.CartModel;
 import apps.webscare.myapplication.Model.GalleryItem;
+import apps.webscare.myapplication.Model.Measurement;
+import apps.webscare.myapplication.Model.Product;
+import apps.webscare.myapplication.Model.ProductModel;
 import apps.webscare.myapplication.R;
+import apps.webscare.myapplication.Statics.StaticVar;
 
 public class GalleryItemsAdapter extends RecyclerView.Adapter<GalleryItemsAdapter.GalleryViewHolder> {
 
-    List<GalleryItem> itemList;
+    List<Product> itemList;
     Context context;
-    DatabaseReference cartRef;
-    String phone;
 
-    public GalleryItemsAdapter(List<GalleryItem> itemList, Context context, String phone) {
+
+    public GalleryItemsAdapter(List<Product> itemList, Context context) {
         this.itemList = itemList;
         this.context = context;
-        this.phone = phone;
+
     }
 
     @NonNull
@@ -58,38 +63,41 @@ public class GalleryItemsAdapter extends RecyclerView.Adapter<GalleryItemsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull GalleryItemsAdapter.GalleryViewHolder holder, int position) {
-        holder.itemName.setText(itemList.get(position).getName());
-        holder.itemPrice.setText("PKR "+itemList.get(position).getPrice());
-        Glide.with(context).load(itemList.get(position).getImage()).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.itemImage);
+        holder.itemName.setText(itemList.get(position).getTitle());
+        holder.itemPrice.setText("PKR "+itemList.get(position).getCurrentPrice());
+        Product product=itemList.get(holder.getAdapterPosition());
+        Glide.with(context).load(itemList.get(position).getThumbnail()).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(holder.itemImage);
         holder.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddItemsToCart(itemList.get(position).getName(),itemList.get(position).getId(),itemList.get(position).getPrice(),itemList.get(position).getImage(),phone);
             }
         });
         holder.orderNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddItemsToCart(itemList.get(position).getName(),itemList.get(position).getId(),itemList.get(position).getPrice(),itemList.get(position).getImage(),phone);
+
             }
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(itemList.get(position).isVisible()){
-                    holder.orderNowLayout.setVisibility(View.GONE);
-                    itemList.get(position).setVisible(false);
+                CartModel cartModel=new CartModel(product.getTitle(),product.getCurrentPrice(),new Measurement("0","0","0","0","0","0","0","0","0"),"1",product.getThumbnail());
+                boolean alreadyExist=false;
+                if(StaticVar.cart.size()>=holder.getAdapterPosition())
+                for(int i=0;i<StaticVar.cart.size();i++){
+                       if(StaticVar.cart.get(i).getTitle().equals(itemList.get(holder.getAdapterPosition()).getTitle())){
+                           int quantity= Integer.parseInt(StaticVar.cart.get(i).getQuantity())+1;
+                           StaticVar.cart.get(i).setQuantity(String.valueOf(quantity));
+                           alreadyExist=true;
+                       }
+                   }
 
+                if(!alreadyExist){
+                    StaticVar.cart.add(cartModel);
                 }
-                else {
-                    holder.orderNowLayout.setVisibility(View.VISIBLE);
-                    itemList.get(position).setVisible(true);
-
-                }
+                Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     @Override
@@ -115,63 +123,5 @@ public class GalleryItemsAdapter extends RecyclerView.Adapter<GalleryItemsAdapte
     }
 
 
-    void AddItemsToCart(String name,String id,String price,String image,String phone){
-        cartRef = FirebaseDatabase.getInstance().getReference().child("Cart").child(phone).child("UserCart");
 
-        HashMap<String , String> cartMap = new HashMap<>();
-
-        cartMap.put("name" , name);
-        cartMap.put("id" , id);
-        cartMap.put("price" , price);
-        cartMap.put("image" , image);
-        cartMap.put("phone" , phone);
-        cartMap.put("count" , "1");
-
-
-
-        Query query=cartRef.orderByChild("id").equalTo(id);
-        query.addListenerForSingleValueEvent(
-
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                                GalleryItem item=dataSnapshot.getValue(GalleryItem.class);
-                                if(item.getId().equals(id)){
-                                    String key= dataSnapshot.getKey();
-                                    String setCount=String.valueOf(Integer.parseInt(item.getCount())+1);
-                                    String setPrice=String.valueOf(Integer.parseInt(item.getPrice())+Integer.parseInt(price));
-                                    cartRef.child(key).child("count").setValue(setCount);
-                                    cartRef.child(key).child("price").setValue(setPrice);
-                                    Toast.makeText(context,"Added to cart", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                        else{
-                            cartRef.push().setValue(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(context,"Added to cart", Toast.LENGTH_SHORT).show();
-
-                                    }
-                                    else {
-                                        Toast.makeText(context,"Failed to add in cart", Toast.LENGTH_SHORT).show();
-                                    }
-
-
-                                }
-                            });
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                }
-        );
-
-    }
 }

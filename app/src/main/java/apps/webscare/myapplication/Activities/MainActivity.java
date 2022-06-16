@@ -10,15 +10,19 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import apps.webscare.myapplication.Fragments.Gallery;
 import apps.webscare.myapplication.Fragments.Home;
 import apps.webscare.myapplication.Fragments.Profile;
+import apps.webscare.myapplication.Model.Constants;
 import apps.webscare.myapplication.R;
 
 public class MainActivity extends AppCompatActivity {
     ImageView home_unchecked,profile_unchecked,grid_unchecked;
     CardView home_checked,profile_checked,grid_checked;
+    private long backPressedTime = 0;    // used by onBackPressed()
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,4 +109,32 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+        if (backStackEntryCount == 0& !Constants.CurrentFrag.equals("home")) {
+            androidx.fragment.app.FragmentManager fm=getSupportFragmentManager();
+            androidx.fragment.app.FragmentTransaction fragmentTransaction=fm.beginTransaction();
+            fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            fragmentTransaction.replace(R.id.fragHolder, new Home());
+            fragmentTransaction.commit();
+
+        }else if(backStackEntryCount == 0& Constants.CurrentFrag.equals("home")){
+            long t = System.currentTimeMillis();
+            if (t - backPressedTime > 2000) {
+                backPressedTime = t;
+                Toast.makeText(this, "Press back again to exit",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+
+                super.onBackPressed();
+            }
+        }
+
+
+        else {
+            super.onBackPressed();
+        }
+
+    }
 }

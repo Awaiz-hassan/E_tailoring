@@ -36,24 +36,9 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="70dp"
-        android:src="@drawable/ic_icon_feather_phone_1"
+        android:src="@drawable/ic_icon_feather_mail"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
-        android:fontFamily="@font/poppins_regular"
-        android:text="+92"
-        android:textColor="@color/grey"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewPhone"
-        app:layout_constraintEnd_toStartOf="@+id/editText2"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPhone"
-        app:layout_constraintTop_toTopOf="@+id/imageViewPhone" />
 
     <EditText
         android:id="@+id/editText2"
@@ -61,7 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="50dp"
         android:fontFamily="@font/poppins_regular"
-        android:hint="Phone number"
+        android:hint="Email Address"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/grey"
         android:textCursorDrawable="@drawable/cursor"
@@ -69,18 +55,8 @@
         android:theme="@style/MyEditTextTheme"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewPhone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPhone"
         app:layout_constraintTop_toTopOf="@+id/imageViewPhone" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="30dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="1dp"
-        android:background="@color/grey"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
         android:id="@+id/imageViewLock"
@@ -133,34 +109,20 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
         app:layout_constraintStart_toStartOf="@+id/imageViewLock"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_regular"
-        android:text="Forgot password?"
-        android:textColor="@color/grey"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Loading"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="55dp"
         android:background="@drawable/buttom_background"
         android:elevation="8dp"
         android:visibility="gone"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
         app:layout_constraintStart_toStartOf="@+id/imageViewLock"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword">
 
 
         <com.airbnb.lottie.LottieAnimationView
